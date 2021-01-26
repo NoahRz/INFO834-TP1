@@ -1,6 +1,6 @@
-function readFalseData(req, res) {
+function readAppel(req, res) {
 
-    res.status(200).json({ 'msg': 'false data' });
+    res.status(200).json({ 'msg': 'Appel' });
 }
 
-module.exports.readFalseData = readFalseData;
+module.exports.readAppel = readAppel;
