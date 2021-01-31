@@ -36,6 +36,11 @@ const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 
+//Used for Jsonwebtoken (in login)
+const passport = require('passport'); // maybe allow user to connect with facbook or google (later)
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+
 //used to fetch the data from forms on HTTP POST, and PUT
 app.use(bodyParser.urlencoded({
 
@@ -44,6 +49,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+//disable headers indicating pages are coming from an Express server
+app.disable('x-powered-by');
 
 //Use the morgan logging 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
@@ -85,6 +93,9 @@ const connectDb = async () => {
 
 connectDb().catch(error => console.error(error))
 
+// Passport Setup
+const User = require('./models/user');
+
 //setting session
 app.use(session({
 
@@ -95,6 +106,24 @@ app.use(session({
 
 }));
 
+var opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = process.env.JWT_SECRET;
+
+passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
+    User.findById(jwt_payload.id)
+        .then((user) => {
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
+            }
+        }, (err) => {
+            return done(err, false);
+        });
+}));
+
+app.use(passport.initialize());
 
 //Accessing the routes for the user
 const routes = require('./routes/index');

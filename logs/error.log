@@ -1,3 +1,4 @@
 Tue, 26 Jan 2021 07:41:13 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/vi/falsedata
 Tue, 26 Jan 2021 08:44:05 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/vi/appel
 Tue, 26 Jan 2021 09:13:43 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/signin
+Sun, 31 Jan 2021 14:08:35 GMT | ERROR  | HTTP 404: ask for:  http://localhost:3000/api/v1/signout

@@ -25,12 +25,33 @@ function signin(req, res) {
         });
 }
 
+function signup(req, res) {
+
+    let User = require('../models/user');
+    let newUser = User({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        password: req.body.password,
+        email: req.body.email
+    });
+
+    newUser.save()
+        .then((savedUser) => {
+            req.session.logged = true;
+            res.status(200).json({ token: createToken(savedUser), user: savedUser }); // create token to new user connected
+
+        }, (err) => {
+            res.status(400).json(err.message)
+        });
+}
+
 function signout(req, res) {
 
     req.session.logged = false;
-    res.redirect('/api/v1/');
+    res.status(200).json({ msg: "Succesfully disconected" })
 
 }
 
 module.exports.signin = signin;
+module.exports.signup = signup;
 module.exports.signout = signout;

@@ -11,6 +11,10 @@ router.post('/signin', function (req, res) {
 
 });
 
+router.post("/signup", (req, res) => {
+    controller.signup(req, res);
+});
+
 router.post('/signout', function (req, res) {
 
     controller.signout(req, res);
