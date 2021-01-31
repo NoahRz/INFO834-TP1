@@ -18,7 +18,6 @@ function signin(req, res) {
             }
             else {
                 res.status(400).json({ msg: "Invalid credentials" })
-                //res.redirect('/api/v1/'); // or return an error message
             }
         }, (err) => {
             res.status(500).json(err);

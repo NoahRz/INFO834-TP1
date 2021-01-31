@@ -10,6 +10,7 @@ const controller = require('../controllers/index');
 router.get("/appel", passport.authenticate('jwt', { session: false }), function (req, res) { // we protect this route
 
     controller.readAppel(req, res);
+
 });
 
 module.exports = router;

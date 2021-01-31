@@ -5,8 +5,6 @@ var SALT_WORK_FACTOR = 10;
 var Schema = mongoose.Schema;
 
 // define the schema for our user model
-//we make the distinction between connection through email (called local) or
-//through social network
 
 let UserSchema = new Schema({
 

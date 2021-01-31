@@ -5,7 +5,6 @@ function readAppel(req, res) {
 
     if (req.session.logged) {
         const token = req.header('Authorization').replace('Bearer ', '');
-        console.log("a");
 
         try {
             const payload = jwt.verify(token, process.env.JWT_SECRET)
@@ -22,13 +21,13 @@ function readAppel(req, res) {
                 if (reply == 0) {
                     client.incr(token, redis.print);
                     client.expire(token, 600); // 600 : 10 min
-                    res.status(200).json({ 'msg': 'Appel' });
+                    res.status(200).json({ msg: "Appel" });
                 } else {
                     client.incr(token, redis.print);
                     client.get(token, function (err, cpt) {
                         if (err) throw err;
                         if (!(cpt > 10)) {
-                            res.status(200).json({ 'msg': 'Appel' });
+                            res.status(200).json({ msg: "Appel" });
                         } else {
                             res.status(400).json({ msg: "please wait 10 min" });
                         }
@@ -43,7 +42,6 @@ function readAppel(req, res) {
     else {
         res.status(400).json({ msg: "please sign in" });
     }
-
 }
 
 module.exports.readAppel = readAppel;

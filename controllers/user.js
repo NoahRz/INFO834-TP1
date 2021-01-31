@@ -16,8 +16,6 @@ function createUser(req, res) {
         });
 }
 
-
-
 function readUsers(req, res) {
 
     let User = require("../models/user");
@@ -41,7 +39,6 @@ function readUser(req, res) {
             res.status(500).json(err);
         });
 }
-
 
 function updateUser(req, res) {
 
